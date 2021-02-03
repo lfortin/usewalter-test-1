@@ -45,7 +45,7 @@ const dataService = {
             id: uuidv4(),
             name,
             type,
-            status,
+            status: parseInt(status),
         };
         packages.push(package);
 
@@ -54,7 +54,7 @@ const dataService = {
     setPackageStatus: async function(packageId, status) {
         // here we may validate data input...
 
-        let package = _.find(packages, item => item.id === packageId);
+        let package = _.find(packages, ['id', packageId]);
         package.status = status;
 
         return package;
