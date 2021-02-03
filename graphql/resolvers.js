@@ -1,20 +1,23 @@
 const authService = require('../services/auth');
+const dataService = require('../services/data');
 
 const resolvers = {
     Query: {
       async getResidents() {
-        return [];
+        return dataService.getResidents();
       },
       async getPackages() {
-        return [];
+        return dataService.getPackages();
       }
     },
     Mutation: {
       async createPackage(name, type, status) {
-        return {status: "success", package: {name, type, status}};
+        let package = await dataService.createPackage(name, type, status);
+        return {status: "success", package: package, message: "package created successfully"};
       },
       async setPackageStatus(packageId, status) {
-        return {status: "success", package: {}};
+        let package = await dataService.setPackageStatus(packageId, status);
+        return {status: "success", package: package, message: "package status updated successfully"};
       },
       async login(email, password) {
         try {
